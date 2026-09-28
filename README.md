@@ -5,11 +5,7 @@ git
 c++
 Hello world!!!
 
-mcksdj;flaklfnkdfdv
 
-
-uinouiyoui
-ровоілфтау
-лофазкушатох
-аошфщзкоашщхкї
-куоашхщзаршхфйук
+asdqwezxzcerfdvgnjlk;fdbajkbn;vfdabnjklavfdinoasvridojioaesvrd
+dafv
+vadfvjkafoidpoipjvadfjiobgfduvfdafzbgdfbdfdb
