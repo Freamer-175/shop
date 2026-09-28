@@ -5,7 +5,5 @@ git
 c++
 Hello world!!!
 
-
-asdqwezxzcerfdvgnjlk;fdbajkbn;vfdabnjklavfdinoasvridojioaesvrd
-dafv
-vadfvjkafoidpoipjvadfjiobgfduvfdafzbgdfbdfdb
+Робить?
+Точно???????
