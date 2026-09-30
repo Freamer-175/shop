@@ -7,7 +7,7 @@
 ---
 
 ## 👥 Команда "Whitenet Devs" та ролі
-* **[Твоє Ім'я / GitHub]** — Team Lead & Backend Developer (Python)
+* **[Твоє Ім'я / GitHub]** — & Backend Developer (Python)
 * **[]** — UI/UX Designer & Frontend Developer (HTML/CSS)
 * **[]** — Business Analyst & Technical Writer
 * **[]** — QA Engineer & Project Manager
