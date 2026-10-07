@@ -7,10 +7,10 @@
 ---
 
 ## 👥 Команда "Whitenet Devs" та ролі
-* **[Твоє Ім'я / GitHub]** — & Backend Developer (Python)
-* **[]** — UI/UX Designer & Frontend Developer (HTML/CSS)
-* **[]** — Business Analyst & Technical Writer
-* **[]** — QA Engineer & Project Manager
+* **[Freamer-174]** — & Backend Developer (Python)
+* **[sfice6767]** — UI/UX Designer & Frontend Developer (HTML/CSS)
+* **[sofiameteluk-ctrl]** — Business Analyst & Technical Writer
+* **[Vadim13666]** — QA Engineer & Project Manager
 
 ---
 
