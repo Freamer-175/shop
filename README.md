@@ -12,6 +12,7 @@
 * **[sofiameteluk-ctrl]** — Business Analyst & Technical Writer
 * **[Vadim13666]** — QA Engineer & Project Manager
 
+
 ---
 
 ## 📌 Project Vision (Візія проєкту)
