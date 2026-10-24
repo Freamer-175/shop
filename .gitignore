@@ -1,2 +1,12 @@
 .vs/
 *.slnx
+# Ігнорування налаштувань PyCharm / JetBrains
+.idea/
+
+# Ігнорування налаштувань Visual Studio
+.vs/
+*.suo
+*.user
+
+# Ігнорування налаштувань VS Code
+.vscode/
