@@ -1,0 +1,129 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block header_buttons %}
+<a href="{% url 'about' %}" class="btn btn-outline-light me-2">Про нас</a>
+<a href="{% url 'cart' %}" class="btn btn-warning fw-bold">
+    <i class="bi bi-cart"></i> Кошик
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <!-- Хлібні крихти (як на Розетці) -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-secondary">Головна</a></li>
+            <li class="breadcrumb-item text-white active" aria-current="page">{{ product.title }}</li>
+        </ol>
+    </nav>
+
+    <!-- Основний блок товару -->
+    <div class="row g-4">
+        
+        <!-- ЛІВА КОЛОНКА: Чиста CSS галерея без JS -->
+        <div class="col-lg-5">
+            <div class="p-3 bg-black rounded-3 border border-secondary">
+                
+                {% if product.images.all %}
+                <!-- Головне велике фото (або перше з галереї) -->
+                <div class="mb-3 position-relative">
+                    <img id="main-product-img" src="{{ product.images.first.image.url }}" class="img-fluid rounded w-100" alt="{{ product.title }}" style="height: 380px; object-fit: contain; background-color: #000;">
+                </div>
+
+                <!-- Мініатюрки-кнопки (при кліку змінюють головне фото через простий inline-скрипт без бібліотек) -->
+                <div class="d-flex gap-2 overflow-auto pb-2 justify-content-center">
+                    {% for img in product.images.all %}
+                    <img src="{{ img.image.url }}" 
+                         onclick="document.getElementById('main-product-img').src='{{ img.image.url }}'" 
+                         class="rounded border border-secondary" 
+                         style="width: 60px; height: 60px; object-fit: cover; cursor: pointer; transition: 0.2s;" 
+                         onmouseover="this.style.borderColor='#198754'" 
+                         onmouseout="this.style.borderColor='#495057'"
+                         alt="мініатюра">
+                    {% endfor %}
+                </div>
+                
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center bg-dark text-secondary rounded" style="height: 350px;">
+                    <span>Немає фото</span>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <!-- ПРАВА КОЛОНКА: Ціна, статус і кнопки (стиль маркетплейсу) -->
+        <div class="col-lg-7">
+            <div class="p-4 bg-black rounded-3 border border-secondary h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <!-- Назва товару -->
+                    <h1 class="h2 fw-bold text-white mb-2">{{ product.title }}</h1>
+                    
+                    <!-- Статус наявності -->
+                    <div class="mb-3">
+                        {% if product.available %}
+                            <span class="badge bg-success fs-6 px-3 py-2">✓ В наявності</span>
+                        {% else %}
+                            <span class="badge bg-danger fs-6 px-3 py-2">Немає в наявності</span>
+                        {% endif %}
+                        <span class="text-secondary ms-3 small">Код товару: {{ product.slug }}</span>
+                    </div>
+
+                    <hr class="border-secondary">
+
+                    <!-- Блок ціни -->
+                    <div class="mb-4">
+                        <div class="fs-1 fw-bold text-success">{{ product.price }} <span class="fs-4">грн</span></div>
+                    </div>
+
+                    <!-- Кнопки покупки -->
+                    <div class="d-grid gap-2 mb-4">
+                        <!-- Кнопка «Купити» (додає в кошик і веде прямо в кошик) -->
+                        <a href="{% url 'cart_add_and_buy' product.id %}" class="btn btn-success btn-lg fw-bold py-3 shadow-sm text-decoration-none text-center">
+                            🛒 Купити
+                        </a>
+                        
+                        <!-- Кнопка «Додати в кошик» (додає в кошик і залишає на сторінці) -->
+                        <a href="{% url 'cart_add' product.id %}" class="btn btn-outline-warning btn-lg py-2 text-decoration-none text-center">
+                            Додати в кошик
+                        </a>
+                    </div>
+
+                    <!-- Гарантія та динамічна доставка -->
+                    <div class="p-3 bg-dark rounded border border-secondary text-secondary small mb-3">
+                        <div class="mb-1">
+                            🛡️ <b>Гарантія:</b> {{ product.warranty_months }} місяців від виробника
+                        </div>
+                        <div>
+                            📦 <b>Доставка:</b> {{ product.get_delivery_list }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопка повернення -->
+                <div>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">
+                        ← Продовжити покупки
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- БЛОК ОПИСУ ТОВАРУ ЗНИЗУ -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="p-4 bg-black rounded-3 border border-secondary">
+                <h3 class="fw-bold text-white mb-3 border-bottom border-secondary pb-2">Опис {{ product.title }}</h3>
+                <p class="text-secondary fs-5 lh-base">{{ product.description }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

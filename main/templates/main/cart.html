@@ -1,11 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	
-</body>
-</html>
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Кошик покупок{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Ваш кошик</h2>
+
+    {% if cart %}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Назва товару</th>
+                        <th>Ціна</th>
+                        <th>Кількість</th>
+                        <th>Сума</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Використовуємо .items, щоб мати доступ і до ID (для видалення), і до даних товару (item) -->
+                    {% for product_id, item in cart.items %}
+                    <tr>
+                        <td>
+                             <a href="{% url 'product_detail' item.slug %}" class="text-decoration-none text-light">
+                              {{ item.title }}
+                             </a>
+                        </td>
+                        <td>{{ item.price }} грн</td>
+                        <td><div class="cart-item-quantity">
+                                 <!-- Кнопка мінус -->
+                                <a href="{% url 'cart_decrement' product_id %}" class="btn btn-sm btn-outline-secondary">-</a>
+
+                                <!-- Поточна кількість -->
+                                <span class="mx-2">{{ item.quantity }}</span>
+
+                                <!-- Кнопка плюс -->
+                                <a href="{% url 'cart_increment' product_id %}" class="btn btn-sm btn-outline-secondary">+</a>
+                           </div></td>
+                        <td><strong>{{ item.total_price }} грн</strong></td>
+                        
+                        <td>
+                            <!-- Посилання на видалення товару (коли зробимо цю в'юху) -->
+                            <a href="{% url 'cart_remove' product_id %}" class="btn btn-outline-danger btn-sm">Видалити</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h3>Загальна сума: <span class="text-warning">{{ all_price }} грн</span></h3>
+            <div>
+                <a href="{% url 'home' %}" class="btn btn-outline-light me-2">Продовжити покупки</a>
+                <!-- Наступний крок — кнопка оформлення замовлення -->
+                <<a href="{% url 'checkout' %}" class="btn btn-warning fw-bold">Оформити замовлення</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-secondary text-center py-5">
+            <h4>Ваш кошик наразі порожній</h4>
+            <p class="text-muted">Оберіть товари в каталозі, щоб додати їх сюди.</p>
+            <a href="{% url 'home' %}" class="btn btn-warning fw-bold mt-2">Перейти до каталогу</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

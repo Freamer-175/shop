@@ -1,52 +1,76 @@
 {% extends 'main/layout.html' %}
 {% load static %}
 
+<!-- Змінюємо назву вкладки у браузері -->
 {% block title %}Головна сторінка{% endblock %}
 
+<!-- Кнопки у верхній панелі (шапці) сайту -->
 {% block header_buttons %}
 <a href="{% url 'about' %}" class="btn btn-outline-light me-2">Про нас</a>
-<a href="{% url 'cart' %}" class="btn btn-warning fw-bold">🛒 Кошик</a>
+<a href="{% url 'cart' %}" class="btn btn-warning fw-bold">
+    <i class="bi bi-cart"></i> Кошик
+</a>
 {% endblock %}
 
 {% block content %}
+<!-- Шапка каталогу -->
 <div class="p-4 mb-4 bg-black rounded-3 border border-secondary">
     <h1 class="display-6 fw-bold text-white">Каталог товарів</h1>
     <p class="text-secondary mb-0">Обирайте найкращі товари в нашому магазині.</p>
 </div>
 
-<!-- Сітка товарів -->
+<!-- Сітка товарів (розташовує картки по 3 в рядок завдяки Bootstrap) -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <!-- Цикл перебирає всі товари з бази даних по черзі -->
     {% for product in products %}
     <div class="col">
         <div class="card h-100 bg-black text-white border-secondary">
 
-            <!-- Відображаємо першу картинку товару, якщо вона є -->
+            <!-- 1. Картинка товару з перевіркою: чи є вона взагалі -->
             {% if product.images.first %}
             <img src="{{ product.images.first.image.url }}" class="card-img-top p-3" alt="{{ product.title }}" style="height: 220px; object-fit: contain;">
             {% else %}
+            <!-- Якщо фото немає, показуємо заглушку -->
             <div class="d-flex align-items-center justify-content-center bg-dark text-secondary" style="height: 220px;">
                 <span>Немає фото</span>
             </div>
             {% endif %}
 
+            <!-- Основний блок картки з текстом -->
             <div class="card-body d-flex flex-column">
-                <h5 class="card-title fw-bold">{{ product.title }}</h5>
+
+                <!-- 2. НАЗВА ТОВАРУ ЯК ПОСИЛАННЯ -->
+                <h5 class="card-title fw-bold">
+                    <a href="{% url 'product_detail' product.slug %}" class="text-white text-decoration-none">
+                        {{ product.title }}
+                    </a>
+                </h5>
+
+                <!-- Короткий опис (обрізаний до 15 слів) -->
                 <p class="card-text text-secondary flex-grow-1">
                     {{ product.description|truncatewords:15 }}
                 </p>
 
+                <!-- Нижня частина картки: ціна і кнопка -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <span class="fs-4 fw-bold text-warning">{{ product.price }} грн</span>
-                    <button class="btn btn-primary">Додати в кошик</button>
+
+                    <!-- 3. КНОПКА «Детальніше» (веде на сторінку товару за слагом) -->
+                    <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">Детальніше</a>
+                    <a href="{% url 'cart_add' product.id %}" class="btn btn-primary">   🛒   </a>
                 </div>
             </div>
 
         </div>
     </div>
+
     {% empty %}
+    <!-- Цей блок спрацює, якщо в базі даних взагалі немає жодного товару -->
     <div class="col-12">
         <p class="text-secondary">Наразі немає доступних товарів.</p>
     </div>
     {% endfor %}
+
 </div>
 {% endblock %}
