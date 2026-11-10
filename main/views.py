@@ -151,3 +151,16 @@ def checkout_view(request):
 
 def order_success_view(request):
     return render(request, 'main/order_success.html')
+
+def search_view(request):
+    query = request.GET.get('q', '')
+    products = []
+    
+    if query:
+        products = Product.objects.filter(title__icontains=query) 
+        
+    context = {
+        'query': query,
+        'products': products
+    }
+    return render(request, 'main/search_results.html', context)

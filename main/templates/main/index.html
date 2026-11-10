@@ -18,7 +18,10 @@
     <h1 class="display-6 fw-bold text-white">Каталог товарів</h1>
     <p class="text-secondary mb-0">Обирайте найкращі товари в нашому магазині.</p>
 </div>
-
+<form action="{% url 'search' %}" method="GET">
+    <input type="text" name="q" placeholder="Шукати товари..." required>
+    <button type="submit">Знайти</button>
+</form>
 <!-- Сітка товарів (розташовує картки по 3 в рядок завдяки Bootstrap) -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    перенаправлення на оплату...
+</head>
+<body onload="document.getElementById('wfp-form').submit();">
+    <div class="container text-center my-5">
+        <h3>Перенаправлення на систему безпечних платежів WayForPay...</h3>
+        <p>Будь ласка, зачекайте, зараз відкриється сторінка оплати.</p>
+    </div>
+
+    <!-- Форма, яка летить на WayForPay методом POST -->
+    <!-- Форма, яка летить на WayForPay методом POST -->
+    <form id="wfp-form" action="https://secure.wayforpay.com/pay" method="POST" style="display: none;">
+        <input type="hidden" name="merchantAccount" value="{{ merchantAccount }}">
+        <input type="hidden" name="merchantDomainName" value="{{ merchantDomainName }}">
+        <input type="hidden" name="orderReference" value="{{ orderReference }}">
+        <input type="hidden" name="orderDate" value="{{ orderDate }}">
+        <input type="hidden" name="amount" value="{{ amount }}">
+        <input type="hidden" name="currency" value="{{ currency }}">
+
+        <input type="hidden" name="productName[]" value="{{ productName }}">
+        <input type="hidden" name="productCount[]" value="{{ productCount }}">
+        <input type="hidden" name="productPrice[]" value="{{ productPrice }}">
+
+        <input type="hidden" name="merchantSignature" value="{{ merchantSignature }}">
+    </form>
+</body>
+</html>

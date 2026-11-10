@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Результати пошуку для: "{{ query }}"</h2>
+
+    {% if products %}
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-3">
+            <div class="card p-3">
+                <h3>{{ product.title }}</h3>
+                <p>Ціна: {{ product.price }} грн</p>
+                <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">Переглянути</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Нічого не знайдено за твоїм запитом.</p>
+    {% endif %}
+</div>
+{% endblock %}
